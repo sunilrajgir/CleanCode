@@ -73,9 +73,57 @@
 		3210BC35238BCCAF006E44D6 /* CleanCodeExample */ = {
 			isa = PBXGroup;
 			children = (
-				3210BC36238BCCD2006E44D6 /* ExampleViewController.swift */,
+				3210BC3C238BD1D3006E44D6 /* View */,
+				3210BC3B238BD1C6006E44D6 /* Controller */,
+				3210BC3D238BD1E9006E44D6 /* Presenter */,
+				3210BC38238BCE86006E44D6 /* Interactor */,
+				3210BC3A238BD167006E44D6 /* DataFetcher */,
+				3210BC39238BCF4F006E44D6 /* Entity */,
 			);
 			path = CleanCodeExample;
+			sourceTree = "<group>";
+		};
+		3210BC38238BCE86006E44D6 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		3210BC39238BCF4F006E44D6 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		3210BC3A238BD167006E44D6 /* DataFetcher */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataFetcher;
+			sourceTree = "<group>";
+		};
+		3210BC3B238BD1C6006E44D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3210BC3C238BD1D3006E44D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3210BC36238BCCD2006E44D6 /* ExampleViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3210BC3D238BD1E9006E44D6 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
