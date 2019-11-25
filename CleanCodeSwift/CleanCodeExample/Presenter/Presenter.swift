@@ -8,12 +8,16 @@
 
 import UIKit
 
-class Presenter {
-
+class Presenter : NSObject {
+    var delegate: PresenterProtocol?
 }
 
 extension Presenter : InteractorProtocol {
     func show(data: Entity?, error: Error?) {
-        
+        self.delegate?.dataFetchCompleted(data: data, error: error)
     }
+}
+
+protocol PresenterProtocol : NSObject {
+    func dataFetchCompleted(data: Entity?, error: Error?)
 }

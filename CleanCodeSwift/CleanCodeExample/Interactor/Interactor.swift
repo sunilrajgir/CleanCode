@@ -11,16 +11,18 @@ import UIKit
 class Interactor {
     let url : String
     let entity: Entity
+    let fetcher: Fetcher
     var delegate: InteractorProtocol?
     
-    init(url: String, entity: Entity) {
+    init(url: String, entity: Entity, fetcher: Fetcher) {
         self.url = url
         self.entity = entity
+        self.fetcher = fetcher
     }
     
     func fetchData() {
         let completeUrl = URL(string: self.url)
-        Fetcher.fetchData(url: completeUrl!) { [weak self](data, error) in
+        self.fetcher.fetchData(url: completeUrl!) { [weak self](data, error) in
             self?.parseData(data: data, error: error)
         }
     }
@@ -35,6 +37,6 @@ class Interactor {
     }
 }
 
-protocol InteractorProtocol {
+protocol InteractorProtocol : NSObject {
     func show(data: Entity?, error: Error?)
 }
