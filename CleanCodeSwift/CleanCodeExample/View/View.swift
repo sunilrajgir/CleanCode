@@ -8,26 +8,66 @@
 
 import UIKit
 
-class View: UIViewController {
+internal class View: UIViewController {
     var controller: Controller?
-    let startButton = UIButton(frame: CGRect(x: 150, y: 200, width: 100, height: 44))
-    let activityView = UIActivityIndicatorView(frame: CGRect(x: 200, y: 300, width: 44, height: 44))
-    let messageLable = UILabel(frame: CGRect(x: 20, y: 200, width: 200, height: 50))
-    let resetButton = UIButton(frame: CGRect(x: 150, y: 400, width: 200, height: 44))
+    let fetchButton  = UIButton()
+    let loaderView = UIActivityIndicatorView()
+    let messageLable = UILabel()
+    let resetButton  = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.updateUI()
-        self.startButton.setTitle("Fetch", for: .normal)
-        self.startButton.backgroundColor = UIColor.gray
-        self.startButton.addTarget(self, action: #selector(fetchButtonAction), for: .touchUpInside)
-        self.view.addSubview(self.startButton)
+        self.updateUIColor()
+        self.addUIComponents()
     }
     
-    func updateUI() {
+    fileprivate func updateUIColor() {
         self.view.backgroundColor = UIColor.white
     }
     
-    @objc func fetchButtonAction() {
+    fileprivate func addUIComponents(){
+        self.addFetchButton()
+        self.addLoaderView()
+        self.addMessageLabel()
+        self.addResetButton()
+        self.showFetchButton()
+    }
+    
+    fileprivate func addFetchButton(){
+        self.fetchButton.frame = CGRect(x: (self.view.frame.size.width-100)/2, y: (self.view.frame.size.height-100)/2, width: 100, height: 50)
+        self.fetchButton.setTitle("Fetch", for: .normal)
+        self.fetchButton.backgroundColor = UIColor.gray
+        self.fetchButton.addTarget(self, action: #selector(fetchButtonAction), for: .touchUpInside)
+        self.fetchButton.isHidden = true
+        self.view.addSubview(self.fetchButton)
+    }
+    
+    fileprivate func addLoaderView(){
+        self.loaderView.frame = CGRect(x: (self.view.frame.size.width-50)/2, y: (self.view.frame.size.height-50)/2, width: 50, height: 50)
+        self.loaderView.isHidden = true
+        self.view.addSubview(self.loaderView)
+    }
+    
+    fileprivate func addMessageLabel(){
+        self.messageLable.frame = CGRect(x: (self.view.frame.size.width-200)/2, y: (self.view.frame.size.height-50)/2, width: 200, height: 50)
+        self.messageLable.backgroundColor = .lightGray
+        self.messageLable.textColor = .blue
+        self.messageLable.textAlignment = .center
+        self.messageLable.isHidden = true
+        self.view.addSubview(self.messageLable)
+    }
+    
+    fileprivate func addResetButton(){
+        self.resetButton.frame = CGRect(x: (self.view.frame.size.width-100)/2, y: (self.view.frame.size.height-200), width: 100, height: 50)
+        self.resetButton.setTitle("Reset", for: .normal)
+        self.resetButton.backgroundColor = UIColor.green
+        self.resetButton.addTarget(self, action: #selector(resetButtonAction), for: .touchUpInside)
+        self.resetButton.isHidden = true
+        self.view.addSubview(self.resetButton)
+    }
+    
+
+    @objc func fetchButtonAction(){
         self.showLoader()
         let entity = Entity()
         let fetcher = Fetcher()
@@ -41,39 +81,44 @@ class View: UIViewController {
         self.controller?.fetchbuttonAction()
     }
     
-    func showLoader() {
-        self.messageLable.isHidden = true
-        self.resetButton.isHidden = true
-        self.startButton.isHidden = true
-        self.activityView.startAnimating()
-        self.view.addSubview(activityView)
+    @objc func resetButtonAction(){
+        self.showFetchButton()
     }
     
-    func completedDataFetch(messsage:String) {
-        self.activityView.stopAnimating()
-        self.activityView.isHidden = true
-        self.startButton.isHidden = true
-        self.showMessage(message: messsage)
+    fileprivate func showLoader() {
+        self.fetchButton.isHidden  = true
+        self.messageLable.isHidden = true
+        self.resetButton.isHidden  = true
+        self.loaderView.isHidden   = false
+        self.loaderView.startAnimating()
+    }
+    
+    fileprivate func showFetchButton(){
+        self.messageLable.isHidden = true
+        self.resetButton.isHidden  = true
+        self.loaderView.isHidden   = true
+        self.loaderView.stopAnimating()
+        self.fetchButton.isHidden  = false
+    }
+    
+    fileprivate func showResetButton(){
+        self.fetchButton.isHidden  = true
+        self.loaderView.isHidden   = true
+        self.loaderView.stopAnimating()
+        self.messageLable.isHidden = false
+        self.resetButton.isHidden  = false
+    }
+        
+    private func dataFetchCompleted(message:String){
+        self.messageLable.text = message
         self.showResetButton()
     }
-    
-    func showMessage(message:String) {
-        self.messageLable.text = message
-        self.messageLable.isHidden = false
-        self.view.addSubview(self.messageLable)
-    }
-    
-    func showResetButton() {
-        self.view.addSubview(self.resetButton)
-        self.resetButton.isHidden = false
-    }
-    
 }
 
 extension View : ViewModelProtocol {
     func showResetButton(message: String) {
         DispatchQueue.main.async { [weak self] in
-            self?.completedDataFetch(messsage: message)
+            self?.dataFetchCompleted(message: message)
         }
     }
 }
