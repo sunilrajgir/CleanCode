@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     }
     
     @objc func startButtonAction()  {
-        let exampleViewController = ExampleView()
+        let exampleViewController = View()
         self.navigationController?.pushViewController(exampleViewController, animated: true)
     }
 }
