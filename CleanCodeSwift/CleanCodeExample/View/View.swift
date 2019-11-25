@@ -9,7 +9,7 @@
 import UIKit
 
 class View: UIViewController {
-    
+    var controller: Controller?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateUI()
@@ -27,8 +27,10 @@ class View: UIViewController {
     @objc func fetchButtonAction() {
         let entity = Entity()
         let interactor = Interactor(url: "https://www.google.com/", entity: entity)
-        let controller = Controller(interactor: interactor)
-        controller.fetchbuttonAction()
+        let presentor = Presenter()
+        interactor.delegate = presentor
+        self.controller = Controller(interactor: interactor)
+        self.controller?.fetchbuttonAction()
     }
     
 }
