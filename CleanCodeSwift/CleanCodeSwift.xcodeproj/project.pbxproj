@@ -54,6 +54,7 @@
 		3210BC15238BC97F006E44D6 = {
 			isa = PBXGroup;
 			children = (
+				3210BC51238C33E6006E44D6 /* Utility */,
 				3210BC35238BCCAF006E44D6 /* CleanCodeExample */,
 				3210BC20238BC97F006E44D6 /* CleanCodeSwift */,
 				3210BC1F238BC97F006E44D6 /* Products */,
@@ -150,6 +151,13 @@
 				3210BC4F238BF452006E44D6 /* ViewModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3210BC51238C33E6006E44D6 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -15,13 +15,15 @@ internal class View: UIViewController {
     let messageLable = UILabel()
     let resetButton  = UIButton()
     
+// MARK:- View Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.buildCleanComponent()
         self.updateUIColor()
         self.addUIComponents()
     }
-    
+
+// MARK:- Clean code set up
     fileprivate func buildCleanComponent(){
         //view Model
         let viewModel = ViewModel()
@@ -39,6 +41,8 @@ internal class View: UIViewController {
         
         self.controller = Controller(interactor: interactor)
     }
+    
+// MARK:- UI Function
     
     fileprivate func updateUIColor() {
         self.view.backgroundColor = UIColor.white
@@ -85,6 +89,7 @@ internal class View: UIViewController {
         self.view.addSubview(self.resetButton)
     }
     
+ // MARK:- Button Action
 
     @objc func fetchButtonAction(){
         self.showLoader()
@@ -94,6 +99,8 @@ internal class View: UIViewController {
     @objc func resetButtonAction(){
         self.showFetchButton()
     }
+    
+ // MARK:- Show Hide UI
     
     fileprivate func showLoader() {
         self.fetchButton.isHidden  = true
@@ -124,6 +131,8 @@ internal class View: UIViewController {
         self.showResetButton()
     }
 }
+
+ // MARK:- ViewModelProtocol
 
 extension View : ViewModelProtocol {
     func showResetButton(message: String) {
