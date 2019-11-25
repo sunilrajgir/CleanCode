@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExampleViewController: UIViewController {
+class ExampleView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,11 @@ class ExampleViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
     }
     
-    @objc func fetchButtonAction()  {
-        
+    @objc func fetchButtonAction() {
+        let entity = Entity()
+        let interactor = Interactor(url: "https://www.google.com/", entity: entity)
+        let controller = Controller(interactor: interactor)
+        controller.fetchbuttonAction()
     }
     
 }
