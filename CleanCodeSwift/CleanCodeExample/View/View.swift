@@ -17,8 +17,27 @@ internal class View: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.buildCleanComponent()
         self.updateUIColor()
         self.addUIComponents()
+    }
+    
+    fileprivate func buildCleanComponent(){
+        //view Model
+        let viewModel = ViewModel()
+        viewModel.delegate = self
+        
+        //Presenter
+        let presentor = Presenter()
+        presentor.delegate = viewModel
+        
+        //Interactor
+        let entity = Entity()
+        let fetcher = Fetcher()
+        let interactor = Interactor(url: "https://www.google.com/", entity: entity, fetcher: fetcher)
+        interactor.delegate = presentor
+        
+        self.controller = Controller(interactor: interactor)
     }
     
     fileprivate func updateUIColor() {
@@ -69,18 +88,9 @@ internal class View: UIViewController {
 
     @objc func fetchButtonAction(){
         self.showLoader()
-        let entity = Entity()
-        let fetcher = Fetcher()
-        let interactor = Interactor(url: "https://www.google.com/", entity: entity, fetcher: fetcher)
-        let viewModel = ViewModel()
-        let presentor = Presenter()
-        presentor.delegate = viewModel
-        viewModel.delegate = self
-        interactor.delegate = presentor
-        self.controller = Controller(interactor: interactor)
         self.controller?.fetchbuttonAction()
     }
-    
+        
     @objc func resetButtonAction(){
         self.showFetchButton()
     }

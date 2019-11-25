@@ -8,16 +8,17 @@
 
 import UIKit
 
-class ViewModel : NSObject {
+protocol ViewModelProtocol {
+    func showResetButton(message:String)
+}
+
+internal class ViewModel : NSObject {
     var delegate: ViewModelProtocol?
 }
 
 extension ViewModel : PresenterProtocol {
-    func dataFetchCompleted(data: Entity?, error: Error?) {
-        self.delegate?.showResetButton(message: "Data Success")
+    func dataFetchCompleted(message: String) {
+        self.delegate?.showResetButton(message: message)
     }
 }
 
-protocol ViewModelProtocol {
-    func showResetButton(message:String)
-}

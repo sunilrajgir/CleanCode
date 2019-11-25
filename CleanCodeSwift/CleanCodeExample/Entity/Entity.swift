@@ -8,6 +8,6 @@
 
 import UIKit
 
-class Entity {
+internal class Entity {
 
 }

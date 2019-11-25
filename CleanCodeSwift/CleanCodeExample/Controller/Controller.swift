@@ -8,13 +8,13 @@
 
 import UIKit
 
-class Controller {
+internal class Controller {
     let interactor: Interactor
     init(interactor: Interactor) {
         self.interactor = interactor
     }
      
-    func fetchbuttonAction() {
+    internal func fetchbuttonAction() {
         self.interactor.fetchData()
     }
 }

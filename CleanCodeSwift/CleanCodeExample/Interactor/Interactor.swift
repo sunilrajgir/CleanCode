@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Interactor {
+internal class Interactor {
     let url : String
     let entity: Entity
     let fetcher: Fetcher
@@ -20,14 +20,14 @@ class Interactor {
         self.fetcher = fetcher
     }
     
-    func fetchData() {
+    internal func fetchData() {
         let completeUrl = URL(string: self.url)
         self.fetcher.fetchData(url: completeUrl!) { [weak self](data, error) in
             self?.parseData(data: data, error: error)
         }
     }
     
-    func parseData(data: Data?, error: Error?)  {
+    private func parseData(data: Data?, error: Error?)  {
         if error != nil {
             self.delegate?.show(data:nil , error: error)
         } else {

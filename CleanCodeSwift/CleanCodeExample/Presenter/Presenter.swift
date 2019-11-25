@@ -8,16 +8,24 @@
 
 import UIKit
 
-class Presenter : NSObject {
-    var delegate: PresenterProtocol?
+protocol PresenterProtocol : NSObject {
+    func dataFetchCompleted(message:String)
+}
+
+internal class Presenter : NSObject {
+    internal var delegate: PresenterProtocol?
 }
 
 extension Presenter : InteractorProtocol {
-    func show(data: Entity?, error: Error?) {
-        self.delegate?.dataFetchCompleted(data: data, error: error)
+    internal func show(data: Entity?, error: Error?) {
+        var message : String
+        if error != nil {
+            message = "Failure"
+        } else {
+            message = "Success"
+        }
+        self.delegate?.dataFetchCompleted(message:message)
     }
 }
 
-protocol PresenterProtocol : NSObject {
-    func dataFetchCompleted(data: Entity?, error: Error?)
-}
+

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class Fetcher {
-    func fetchData(url: URL, completion:@escaping((_ data:Data?, _ error:Error?)->Void)) {
+internal class Fetcher {
+    internal func fetchData(url: URL, completion:@escaping((_ data:Data?, _ error:Error?)->Void)) {
         let urlRequest = URLRequest(url: url)
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             completion(data,error)
